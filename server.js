@@ -411,8 +411,8 @@ app.get('*', (req, res) => {
 app.listen(PORT, () => {
   console.log(`===============================================`);
   console.log(`🚀 Feastify Fullstack Server is LIVE!`);
-  console.log(`📍 Web Application: http://localhost:${PORT}`);
-  console.log(`📡 API Endpoints:   http://localhost:${PORT}/api/restaurants`);
+  console.log(`📍 Web Application: https://zomato-clone-backend-6ryn.onrender.com${PORT}`);
+  console.log(`📡 API Endpoints:  https://zomato-clone-backend-6ryn.onrender.com${PORT}/api/restaurants`);
   console.log(`🗺️ Map Engine:      OpenStreetMap + Leaflet.js Ready`);
   console.log(`===============================================`);
 });

@@ -82,7 +82,7 @@ npm start
 ```
 
 Open your browser at:
-👉 **[http://localhost:3000](http://localhost:3000)**
+👉 **[https://zomato-clone-backend-6ryn.onrender.com](https://zomato-clone-backend-6ryn.onrender.com)**
 
 ---
 
@@ -91,7 +91,7 @@ Open your browser at:
 ```bash
 docker compose up -d
 ```
-Visit `http://localhost:3000` to access the application.
+Visit `https://zomato-clone-backend-6ryn.onrender.com` to access the application.
 
 ---
 

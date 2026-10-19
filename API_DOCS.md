@@ -1,6 +1,6 @@
 # Feastify REST API Documentation
 
-Base URL: `http://localhost:3000` (or `https://yourdomain.com`)
+Base URL: `https://zomato-clone-backend-6ryn.onrender.com` (or `https://yourdomain.com`)
 
 All API responses are formatted in JSON with a consistent schema:
 ```json
@@ -54,7 +54,7 @@ Query and filter restaurants.
 
 - **Sample Request:**
   ```bash
-  curl -s "http://localhost:3000/api/restaurants?isPureVeg=false&minRating=4.0&sortBy=deliveryTime"
+  curl -s "https://zomato-clone-backend-6ryn.onrender.com/api/restaurants?isPureVeg=false&minRating=4.0&sortBy=deliveryTime"
   ```
 
 ---
