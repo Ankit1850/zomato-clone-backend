@@ -1,0 +1,346 @@
+[
+  {
+    "id": "rest_1",
+    "name": "Bikanervala & Royal Feast",
+    "city": "Bengaluru",
+    "area": "Koramangala 5th Block",
+    "rating": 4.4,
+    "reviewCount": 1840,
+    "deliveryTime": 25,
+    "costForTwo": 450,
+    "cuisines": ["North Indian", "Mughlai", "Biryani"],
+    "isPureVeg": false,
+    "offer": "50% OFF up to ₹100",
+    "image": "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=600&auto=format&fit=crop&q=80",
+    "featured": true,
+    "lat": 12.9352,
+    "lng": 77.6245,
+    "menu": [
+      {
+        "id": "m1_1",
+        "name": "Hyderabadi Dum Biryani (Chicken)",
+        "category": "Biryani",
+        "price": 320,
+        "isVeg": false,
+        "rating": 4.6,
+        "description": "Authentic fragrant basmati rice layered with marinated tender chicken and royal herbs.",
+        "image": "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=400&auto=format&fit=crop&q=80"
+      },
+      {
+        "id": "m1_2",
+        "name": "Paneer Butter Masala",
+        "category": "Main Course",
+        "price": 260,
+        "isVeg": true,
+        "rating": 4.5,
+        "description": "Soft cottage cheese cubes simmered in rich creamy tomato and butter gravy.",
+        "image": "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&auto=format&fit=crop&q=80"
+      },
+      {
+        "id": "m1_3",
+        "name": "Butter Garlic Naan (2 Pcs)",
+        "category": "Breads",
+        "price": 85,
+        "isVeg": true,
+        "rating": 4.7,
+        "description": "Clay oven baked flatbread infused with roasted garlic and topped with pure butter.",
+        "image": "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400&auto=format&fit=crop&q=80"
+      },
+      {
+        "id": "m1_4",
+        "name": "Dal Makhani Deluxe",
+        "category": "Main Course",
+        "price": 230,
+        "isVeg": true,
+        "rating": 4.4,
+        "description": "Slow cooked black lentils with fresh cream, butter, and secret aromatic spices.",
+        "image": "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=400&auto=format&fit=crop&q=80"
+      },
+      {
+        "id": "m1_5",
+        "name": "Gulab Jamun (2 pcs)",
+        "category": "Desserts",
+        "price": 90,
+        "isVeg": true,
+        "rating": 4.8,
+        "description": "Golden fried milk dumplings soaked in cardamom flavored warm sugar syrup.",
+        "image": "https://images.unsplash.com/photo-1589119908995-c6837fa14d48?w=400&auto=format&fit=crop&q=80"
+      }
+    ]
+  },
+  {
+    "id": "rest_2",
+    "name": "Artisan Woodfire Pizza Co.",
+    "city": "Bengaluru",
+    "area": "Indiranagar 100ft Road",
+    "rating": 4.6,
+    "reviewCount": 2420,
+    "deliveryTime": 32,
+    "costForTwo": 650,
+    "cuisines": ["Italian", "Pizza", "Pasta", "Desserts"],
+    "isPureVeg": false,
+    "offer": "FLAT ₹125 OFF above ₹499",
+    "image": "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&auto=format&fit=crop&q=80",
+    "featured": true,
+    "lat": 12.9719,
+    "lng": 77.6412,
+    "menu": [
+      {
+        "id": "m2_1",
+        "name": "Classic Margherita 11 inch",
+        "category": "Pizza",
+        "price": 380,
+        "isVeg": true,
+        "rating": 4.7,
+        "description": "San Marzano tomato sauce, fresh buffalo mozzarella, virgin olive oil, and fresh basil.",
+        "image": "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=400&auto=format&fit=crop&q=80"
+      },
+      {
+        "id": "m2_2",
+        "name": "Smoked Chicken & Jalapeno Sourdough",
+        "category": "Pizza",
+        "price": 490,
+        "isVeg": false,
+        "rating": 4.8,
+        "description": "Wood-fired sourdough crust loaded with hickory smoked chicken, red onions, jalapenos, and melted provolone.",
+        "image": "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&auto=format&fit=crop&q=80"
+      },
+      {
+        "id": "m2_3",
+        "name": "Creamy Truffle Mushroom Fettuccine",
+        "category": "Pasta",
+        "price": 420,
+        "isVeg": true,
+        "rating": 4.5,
+        "description": "Handcrafted fettuccine rolled in wild mushroom puree and white truffle oil cream.",
+        "image": "https://images.unsplash.com/photo-1621996346565-e3d5d6281699?w=400&auto=format&fit=crop&q=80"
+      },
+      {
+        "id": "m2_4",
+        "name": "Cheesy Garlic Dough Balls",
+        "category": "Starters",
+        "price": 195,
+        "isVeg": true,
+        "rating": 4.6,
+        "description": "Puffy sourdough bites stuffed with herb garlic butter and served with marinara dip.",
+        "image": "https://images.unsplash.com/photo-1541745537411-b8046dc6d66c?w=400&auto=format&fit=crop&q=80"
+      },
+      {
+        "id": "m2_5",
+        "name": "Classic Italian Tiramisu",
+        "category": "Desserts",
+        "price": 240,
+        "isVeg": true,
+        "rating": 4.9,
+        "description": "Espresso soaked ladyfingers layered with velvety mascarpone and cocoa powder.",
+        "image": "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=400&auto=format&fit=crop&q=80"
+      }
+    ]
+  },
+  {
+    "id": "rest_3",
+    "name": "The Smash Burger Lab",
+    "city": "Bengaluru",
+    "area": "HSR Layout Sector 4",
+    "rating": 4.5,
+    "reviewCount": 980,
+    "deliveryTime": 22,
+    "costForTwo": 500,
+    "cuisines": ["Burgers", "Fast Food", "Shakes"],
+    "isPureVeg": false,
+    "offer": "40% OFF up to ₹80",
+    "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&auto=format&fit=crop&q=80",
+    "featured": false,
+    "lat": 12.9116,
+    "lng": 77.6389,
+    "menu": [
+      {
+        "id": "m3_1",
+        "name": "Double Truffle Smash Beef/Crispy Chicken",
+        "category": "Burgers",
+        "price": 310,
+        "isVeg": false,
+        "rating": 4.7,
+        "description": "Double smashed patties seared crispy, cheddar slice, caramelized onions and signature house sauce.",
+        "image": "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=400&auto=format&fit=crop&q=80"
+      },
+      {
+        "id": "m3_2",
+        "name": "Crispy Paneer Makhani Burger",
+        "category": "Burgers",
+        "price": 240,
+        "isVeg": true,
+        "rating": 4.4,
+        "description": "Spiced golden paneer patty topped with butter makhani glaze, fresh lettuce, and pickled cucumbers.",
+        "image": "https://images.unsplash.com/photo-1550547660-d9450f859349?w=400&auto=format&fit=crop&q=80"
+      },
+      {
+        "id": "m3_3",
+        "name": "Peri Peri Curly Fries",
+        "category": "Sides",
+        "price": 140,
+        "isVeg": true,
+        "rating": 4.5,
+        "description": "Crispy spirals dusted with zesty African bird's eye chili seasoning.",
+        "image": "https://images.unsplash.com/photo-1576107232684-1279f3908594?w=400&auto=format&fit=crop&q=80"
+      },
+      {
+        "id": "m3_4",
+        "name": "Nutella Sea Salt Thickshake",
+        "category": "Beverages",
+        "price": 190,
+        "isVeg": true,
+        "rating": 4.8,
+        "description": "Ultra thick blend of Italian hazelnuts, dark cocoa, artisanal ice cream, and Himalayan pink salt.",
+        "image": "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=400&auto=format&fit=crop&q=80"
+      }
+    ]
+  },
+  {
+    "id": "rest_4",
+    "name": "Dragon Wok & Dim Sum House",
+    "city": "Bengaluru",
+    "area": "MG Road",
+    "rating": 4.3,
+    "reviewCount": 1320,
+    "deliveryTime": 35,
+    "costForTwo": 550,
+    "cuisines": ["Chinese", "Asian", "Momos", "Noodles"],
+    "isPureVeg": false,
+    "offer": "20% OFF on all orders",
+    "image": "https://images.unsplash.com/photo-1541696432-82c6da8ce7bf?w=600&auto=format&fit=crop&q=80",
+    "featured": true,
+    "lat": 12.9756,
+    "lng": 77.6067,
+    "menu": [
+      {
+        "id": "m4_1",
+        "name": "Steamed Crystal Dim Sums (6 pcs)",
+        "category": "Dim Sums",
+        "price": 270,
+        "isVeg": true,
+        "rating": 4.6,
+        "description": "Translucent dumplings filled with water chestnuts, shiitake mushrooms, and baby corn.",
+        "image": "https://images.unsplash.com/photo-1496116218417-1a781b1c416c?w=400&auto=format&fit=crop&q=80"
+      },
+      {
+        "id": "m4_2",
+        "name": "Chili Garlic Hakka Noodles",
+        "category": "Noodles",
+        "price": 230,
+        "isVeg": true,
+        "rating": 4.5,
+        "description": "Wok tossed handmade noodles with shredded greens, crushed fiery red chilies, and burnt garlic.",
+        "image": "https://images.unsplash.com/photo-1585032226651-759b368d7246?w=400&auto=format&fit=crop&q=80"
+      },
+      {
+        "id": "m4_3",
+        "name": "Kung Pao Chicken Bowls",
+        "category": "Main Course",
+        "price": 340,
+        "isVeg": false,
+        "rating": 4.7,
+        "description": "Crispy chicken diced with crunchy peanuts, bell peppers, and Sichuan peppercorn sauce.",
+        "image": "https://images.unsplash.com/photo-1525755662778-989d0524087e?w=400&auto=format&fit=crop&q=80"
+      }
+    ]
+  },
+  {
+    "id": "rest_5",
+    "name": "Green Bowl & Pure Organics",
+    "city": "Bengaluru",
+    "area": "Whitefield IT Corridor",
+    "rating": 4.7,
+    "reviewCount": 1150,
+    "deliveryTime": 20,
+    "costForTwo": 400,
+    "cuisines": ["Healthy Food", "Salads", "Bowls", "Juices"],
+    "isPureVeg": true,
+    "offer": "FREE Delivery on orders above ₹299",
+    "image": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&auto=format&fit=crop&q=80",
+    "featured": false,
+    "lat": 12.9698,
+    "lng": 77.7499,
+    "menu": [
+      {
+        "id": "m5_1",
+        "name": "Mediterranean Quinoa & Avocado Bowl",
+        "category": "Bowls",
+        "price": 290,
+        "isVeg": true,
+        "rating": 4.8,
+        "description": "Organic red quinoa, creamy Haas avocado, roasted chickpeas, feta cheese, and lemon herb vinaigrette.",
+        "image": "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=400&auto=format&fit=crop&q=80"
+      },
+      {
+        "id": "m5_2",
+        "name": "Paneer Teriyaki Protein Salad",
+        "category": "Salads",
+        "price": 260,
+        "isVeg": true,
+        "rating": 4.6,
+        "description": "Charred low-fat cottage cheese tossed with edamame, purple cabbage, kale, and toasted sesame dressing.",
+        "image": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&auto=format&fit=crop&q=80"
+      },
+      {
+        "id": "m5_3",
+        "name": "Cold Pressed Valencia Orange Juice",
+        "category": "Juices",
+        "price": 140,
+        "isVeg": true,
+        "rating": 4.9,
+        "description": "100% pure cold pressed orange juice without added sugar, preservatives or water.",
+        "image": "https://images.unsplash.com/photo-1613478223719-2ab802602423?w=400&auto=format&fit=crop&q=80"
+      }
+    ]
+  },
+  {
+    "id": "rest_6",
+    "name": "South Kitchen Express",
+    "city": "Bengaluru",
+    "area": "Jayanagar 4th Block",
+    "rating": 4.7,
+    "reviewCount": 3100,
+    "deliveryTime": 18,
+    "costForTwo": 250,
+    "cuisines": ["South Indian", "Dosa", "Filter Coffee"],
+    "isPureVeg": true,
+    "offer": "FLAT ₹50 OFF",
+    "image": "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?w=600&auto=format&fit=crop&q=80",
+    "featured": true,
+    "lat": 12.9298,
+    "lng": 77.5826,
+    "menu": [
+      {
+        "id": "m6_1",
+        "name": "Crispy Ghee Podi Masala Dosa",
+        "category": "Dosa",
+        "price": 140,
+        "isVeg": true,
+        "rating": 4.9,
+        "description": "Golden crispy fermented crepe smeared with pure ghee, gunpowder spice and spiced potato mash.",
+        "image": "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?w=400&auto=format&fit=crop&q=80"
+      },
+      {
+        "id": "m6_2",
+        "name": "Steamed Button Idli with Vada Combo",
+        "category": "Breakfast",
+        "price": 110,
+        "isVeg": true,
+        "rating": 4.7,
+        "description": "Soft pillow-like steamed idlis paired with crispy medu vada, drumstick sambar & 3 chutneys.",
+        "image": "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=400&auto=format&fit=crop&q=80"
+      },
+      {
+        "id": "m6_3",
+        "name": "Traditional Madras Filter Coffee",
+        "category": "Beverages",
+        "price": 60,
+        "isVeg": true,
+        "rating": 4.9,
+        "description": "Frothy decoction brewed fresh from chicory and peaberry coffee beans with boiling fresh milk.",
+        "image": "https://images.unsplash.com/photo-1517256064527-09c73fc73e38?w=400&auto=format&fit=crop&q=80"
+      }
+    ]
+  }
+]

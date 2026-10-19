@@ -1,0 +1,54 @@
+[
+  {
+    "id": "ORD_1132451",
+    "createdAt": "2026-10-19T06:25:32.451Z",
+    "restaurant": {
+      "id": "rest_1",
+      "name": "Bikanervala & Royal Feast",
+      "area": "Koramangala 5th Block",
+      "image": "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=600&auto=format&fit=crop&q=80",
+      "lat": 12.9352,
+      "lng": 77.6245
+    },
+    "items": [
+      {
+        "id": "m1_1",
+        "name": "Hyderabadi Dum Biryani (Chicken)",
+        "price": 320,
+        "quantity": 2,
+        "isVeg": false,
+        "itemTotal": 640
+      }
+    ],
+    "pricing": {
+      "subtotal": 640,
+      "discount": 100,
+      "deliveryFee": 35,
+      "gstAndCharges": 32,
+      "platformFee": 6,
+      "tip": 30,
+      "grandTotal": 643
+    },
+    "customer": {
+      "name": "Foodie Enthusiast",
+      "phone": "+91 98765 43210"
+    },
+    "deliveryAddress": {
+      "flat": "Flat 402, Sunshine Heights",
+      "landmark": "Near City Central Park",
+      "city": "Bengaluru",
+      "lat": 12.934651600727394,
+      "lng": 77.62613196478793
+    },
+    "paymentMethod": "COD",
+    "driver": {
+      "name": "Ramesh Kumar",
+      "phone": "+91 98112 34567",
+      "bikeNumber": "KA 03 EQ 4521",
+      "rating": 4.8,
+      "photo": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80"
+    },
+    "durationMinutes": 15,
+    "status": "PLACED"
+  }
+]

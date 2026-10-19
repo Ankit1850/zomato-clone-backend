@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feastify - Order Food Online from Best Restaurants</title>
+  <meta name="description" content="Feastify is your ultimate food delivery app. Order online from top-rated restaurants, track deliveries in real-time with live GPS maps, and enjoy huge discounts!">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍔</text></svg>">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Leaflet Map CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+
+  <!-- Feastify Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- TOP HEADER / NAVBAR -->
+  <header class="navbar">
+    <div class="nav-container">
+      <!-- Brand Logo -->
+      <a href="#" class="brand-logo" onclick="app.showHomeView(event)">
+        <span class="brand-name">Feastify</span>
+        <span class="brand-dot"></span>
+      </a>
+
+      <!-- Location & Search Bar Combo (Zomato signature style) -->
+      <div class="search-bar-wrapper">
+        <div class="location-picker">
+          <i class="fa-solid fa-location-dot location-icon"></i>
+          <select id="citySelect" onchange="app.onCityChange(this.value)">
+            <option value="Bengaluru" selected>Bengaluru, India</option>
+            <option value="Delhi NCR">Delhi NCR, India</option>
+            <option value="Mumbai">Mumbai, India</option>
+            <option value="Hyderabad">Hyderabad, India</option>
+            <option value="Pune">Pune, India</option>
+          </select>
+          <i class="fa-solid fa-caret-down dropdown-arrow"></i>
+        </div>
+
+        <div class="search-divider"></div>
+
+        <div class="search-input-box">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input 
+            type="text" 
+            id="searchInput" 
+            placeholder="Search for restaurant, cuisine, or a dish..." 
+            autocomplete="off"
+            oninput="app.onSearchInput(this.value)"
+          >
+          <button id="clearSearchBtn" class="clear-search hidden" onclick="app.clearSearch()">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Action Navigation Links -->
+      <div class="nav-actions">
+        <button class="nav-btn map-toggle-btn" onclick="mapManager.toggleCityMapModal()" title="Explore on Map">
+          <i class="fa-solid fa-map-location-dot"></i>
+          <span>Live Map</span>
+        </button>
+
+        <button class="nav-btn auth-btn" onclick="app.openAuthModal()">
+          <i class="fa-regular fa-user"></i>
+          <span>Log in</span>
+        </button>
+
+        <!-- Cart Button with Floating Counter -->
+        <button class="nav-btn cart-btn" onclick="cartManager.openCartDrawer()">
+          <div class="cart-icon-wrap">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <span id="cartCountBadge" class="cart-badge">0</span>
+          </div>
+          <span class="cart-label">Cart</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- SUB-HEADER CATEGORY TABS (Delivery, Dining Out, Nightlife) -->
+  <section class="service-tabs-section">
+    <div class="container tabs-flex">
+      <div class="service-tab active" data-tab="delivery" onclick="app.switchServiceTab('delivery')">
+        <div class="tab-icon-box delivery-box">
+          <i class="fa-solid fa-motorcycle"></i>
+        </div>
+        <div class="tab-label">Delivery</div>
+      </div>
+
+      <div class="service-tab" data-tab="dining" onclick="app.switchServiceTab('dining')">
+        <div class="tab-icon-box dining-box">
+          <i class="fa-solid fa-utensils"></i>
+        </div>
+        <div class="tab-label">Dining Out</div>
+      </div>
+
+      <div class="service-tab" data-tab="nightlife" onclick="app.switchServiceTab('nightlife')">
+        <div class="tab-icon-box nightlife-box">
+          <i class="fa-solid fa-martini-glass-citrus"></i>
+        </div>
+        <div class="tab-label">Nightlife</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN WRAPPER -->
+  <main id="mainApp" class="main-content container">
+
+    <!-- HOME VIEW -->
+    <div id="homeView">
+      <!-- PROMO HERO BANNER -->
+      <div class="hero-promo-banner">
+        <div class="promo-text">
+          <span class="promo-pill">FLASH SALE ⚡</span>
+          <h2>Craving delicious food?</h2>
+          <p>Get up to <strong>50% OFF</strong> on top rated places with code <span class="highlight-code">FEAST50</span></p>
+        </div>
+        <div class="promo-stats">
+          <div class="stat-item">
+            <span class="stat-number">500+</span>
+            <span class="stat-title">Kitchens</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">25 mins</span>
+            <span class="stat-title">Avg. Delivery</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">4.6 ★</span>
+            <span class="stat-title">Rated App</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- INSPIRATION / CUISINE ROUND CAROUSEL -->
+      <section class="section-block">
+        <div class="section-heading">
+          <h2>Inspiration for your first order</h2>
+          <span class="subheading">Explore popular dishes and cravings</span>
+        </div>
+        <div class="category-carousel" id="categoryCarousel">
+          <!-- Dynamically populated categories -->
+        </div>
+      </section>
+
+      <!-- FILTER & SORT BAR -->
+      <section class="filter-section">
+        <div class="filters-wrap">
+          <button class="filter-pill" id="filterVegBtn" onclick="app.toggleVegFilter()">
+            <span class="veg-dot-icon"></span>
+            <span>Pure Veg</span>
+          </button>
+
+          <button class="filter-pill" id="filterRatingBtn" onclick="app.toggleRatingFilter()">
+            <i class="fa-solid fa-star"></i>
+            <span>Rating 4.0+</span>
+          </button>
+
+          <button class="filter-pill" id="filterSpeedBtn" onclick="app.toggleSpeedSort()">
+            <i class="fa-solid fa-bolt"></i>
+            <span>Fastest Delivery</span>
+          </button>
+
+          <div class="sort-dropdown">
+            <button class="filter-pill">
+              <i class="fa-solid fa-arrow-down-short-wide"></i>
+              <span id="currentSortLabel">Sort By</span>
+              <i class="fa-solid fa-angle-down"></i>
+            </button>
+            <div class="dropdown-menu">
+              <div class="dropdown-item" onclick="app.setSort('rating')">Rating: High to Low</div>
+              <div class="dropdown-item" onclick="app.setSort('deliveryTime')">Delivery Time: Fastest</div>
+              <div class="dropdown-item" onclick="app.setSort('costAsc')">Cost: Low to High</div>
+              <div class="dropdown-item" onclick="app.setSort('costDesc')">Cost: High to Low</div>
+            </div>
+          </div>
+
+          <button class="filter-pill reset-pill hidden" id="resetFiltersBtn" onclick="app.resetAllFilters()">
+            <i class="fa-solid fa-rotate-left"></i>
+            <span>Reset</span>
+          </button>
+        </div>
+
+        <div class="right-view-controls">
+          <span id="restaurantCountNotice" class="count-notice">Showing restaurants...</span>
+          <button class="map-view-toggle" onclick="mapManager.toggleCityMapModal()">
+            <i class="fa-solid fa-map"></i> View Map
+          </button>
+        </div>
+      </section>
+
+      <!-- RESTAURANTS GRID -->
+      <section class="section-block">
+        <div class="section-heading">
+          <h2 id="gridSectionTitle">Delivery Restaurants in Bengaluru</h2>
+        </div>
+        <div class="restaurants-grid" id="restaurantsGrid">
+          <!-- Populated dynamically via app.js -->
+        </div>
+      </section>
+    </div>
+
+    <!-- RESTAURANT DETAIL VIEW (Loaded when clicking a restaurant) -->
+    <div id="restaurantDetailView" class="hidden">
+      <!-- Back Navigation Bar -->
+      <div class="detail-back-bar">
+        <button class="back-btn" onclick="app.showHomeView()">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span>Back to Restaurants</span>
+        </button>
+        <div class="breadcrumb" id="detailBreadcrumb">Home / Bengaluru / Restaurant</div>
+      </div>
+
+      <!-- Restaurant Header Card -->
+      <div class="rest-header-banner" id="restHeaderBanner">
+        <!-- Rendered via JS -->
+      </div>
+
+      <!-- Navigation Tabs inside Restaurant (Menu, Reviews, Location) -->
+      <div class="detail-tabs">
+        <button class="d-tab active" onclick="app.switchDetailTab('menu', this)">Order Online</button>
+        <button class="d-tab" onclick="app.switchDetailTab('overview', this)">Overview & Location</button>
+        <button class="d-tab" onclick="app.switchDetailTab('reviews', this)">Reviews & Ratings</button>
+      </div>
+
+      <!-- Tab Content: Menu -->
+      <div id="tabMenuContent" class="tab-pane active">
+        <div class="menu-layout">
+          <!-- Sidebar categories -->
+          <aside class="menu-sidebar" id="menuSidebar">
+            <!-- Populated via JS -->
+          </aside>
+
+          <!-- Menu items container -->
+          <div class="menu-items-area" id="menuItemsArea">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Content: Overview & Map -->
+      <div id="tabOverviewContent" class="tab-pane hidden">
+        <div class="overview-grid">
+          <div class="overview-card">
+            <h3>About This Place</h3>
+            <div id="overviewDetails"></div>
+            <div class="timing-badge"><i class="fa-regular fa-clock"></i> Open: 10:30 AM – 11:30 PM</div>
+          </div>
+          <div class="overview-card">
+            <h3>Location on Map</h3>
+            <div id="restaurantMiniMap" class="mini-map-box"></div>
+            <p id="restaurantAddressText" class="address-text"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Content: Reviews -->
+      <div id="tabReviewsContent" class="tab-pane hidden">
+        <div class="reviews-section">
+          <div class="add-review-card">
+            <h3>Leave a Review</h3>
+            <form onsubmit="app.submitReview(event)">
+              <div class="form-row">
+                <input type="text" id="reviewerName" placeholder="Your Name" required class="input-ctrl">
+                <select id="reviewerRating" class="input-ctrl" required>
+                  <option value="5">⭐⭐⭐⭐⭐ (5 - Exceptional)</option>
+                  <option value="4">⭐⭐⭐⭐ (4 - Very Good)</option>
+                  <option value="3">⭐⭐⭐ (3 - Average)</option>
+                  <option value="2">⭐⭐ (2 - Below Average)</option>
+                  <option value="1">⭐ (1 - Poor)</option>
+                </select>
+              </div>
+              <textarea id="reviewerComment" placeholder="Write your dining or delivery experience..." required class="input-ctrl" rows="3"></textarea>
+              <button type="submit" class="primary-btn">Submit Review</button>
+            </form>
+          </div>
+          <div class="reviews-list" id="reviewsList">
+            <!-- Mock reviews -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LIVE ORDER TRACKING VIEW -->
+    <div id="orderTrackingView" class="hidden">
+      <div class="tracking-container">
+        <!-- Top Status Card -->
+        <div class="order-status-card">
+          <div class="status-header">
+            <div>
+              <span class="live-pulse"></span>
+              <span class="status-sub">LIVE ORDER TRACKING</span>
+              <h2 id="trackingStatusTitle">Preparing your Feast</h2>
+              <p id="trackingStatusMessage">The restaurant is preparing your food with supreme care.</p>
+            </div>
+            <div class="eta-pill">
+              <span class="eta-time" id="trackingEta">14</span>
+              <span class="eta-unit">MINS ETA</span>
+            </div>
+          </div>
+
+          <!-- Stepper Indicator -->
+          <div class="order-stepper">
+            <div class="step-node active" id="step1">
+              <div class="node-circle"><i class="fa-solid fa-check"></i></div>
+              <div class="node-name">Order Placed</div>
+            </div>
+            <div class="step-line" id="line1"></div>
+            <div class="step-node active" id="step2">
+              <div class="node-circle"><i class="fa-solid fa-utensils"></i></div>
+              <div class="node-name">Cooking</div>
+            </div>
+            <div class="step-line" id="line2"></div>
+            <div class="step-node" id="step3">
+              <div class="node-circle"><i class="fa-solid fa-motorcycle"></i></div>
+              <div class="node-name">On The Way</div>
+            </div>
+            <div class="step-line" id="line3"></div>
+            <div class="step-node" id="step4">
+              <div class="node-circle"><i class="fa-solid fa-house-chimney"></i></div>
+              <div class="node-name">Delivered</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Interactive Map View -->
+        <div class="tracking-map-wrapper">
+          <div id="trackingLiveMap" class="tracking-map"></div>
+          
+          <!-- Floating Driver Info Card -->
+          <div class="driver-card" id="driverCard">
+            <div class="driver-avatar">
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80" alt="Delivery Partner">
+            </div>
+            <div class="driver-info">
+              <div class="driver-name" id="driverName">Ramesh Kumar</div>
+              <div class="driver-meta">Feastify Fleet Champion • <span id="driverBikeNumber">KA 03 EQ 4521</span></div>
+              <div class="driver-rating">★ 4.8 Rating (2,300+ deliveries)</div>
+            </div>
+            <div class="driver-actions">
+              <a href="tel:9811234567" class="call-btn"><i class="fa-solid fa-phone"></i> Call</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Order Summary Drawer -->
+        <div class="tracking-summary-card" id="trackingOrderSummary">
+          <!-- Summary injected dynamically -->
+        </div>
+
+        <div class="tracking-actions">
+          <button class="secondary-btn" onclick="app.showHomeView()">
+            <i class="fa-solid fa-house"></i> Back to Homepage
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ALL RESTAURANTS INTERACTIVE MAP MODAL -->
+  <div id="cityMapModal" class="modal-overlay hidden">
+    <div class="modal-box map-modal-box">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <i class="fa-solid fa-map-location-dot modal-icon"></i>
+          <div>
+            <h3>Explore Food Spots in <span id="mapCityName">Bengaluru</span></h3>
+            <p class="modal-subtitle">Browse top restaurants near your live coordinate</p>
+          </div>
+        </div>
+        <button class="close-btn" onclick="mapManager.toggleCityMapModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body-map">
+        <div id="cityFullMap" class="full-city-map"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CART SLIDE-OVER DRAWER -->
+  <div id="cartDrawerOverlay" class="drawer-overlay hidden" onclick="cartManager.closeCartDrawer(event)">
+    <div class="cart-drawer" onclick="event.stopPropagation()">
+      <div class="drawer-header">
+        <div class="drawer-title">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span>Your Feast Bag</span>
+        </div>
+        <button class="drawer-close-btn" onclick="cartManager.closeCartDrawer()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="drawer-body" id="cartDrawerBody">
+        <!-- Rendered via cart.js: Items list or Empty state -->
+      </div>
+
+      <div class="drawer-footer" id="cartDrawerFooter">
+        <!-- Bill and Checkout button rendered via cart.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- CHECKOUT & PAYMENT MODAL -->
+  <div id="checkoutModal" class="modal-overlay hidden">
+    <div class="modal-box checkout-modal-box">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <i class="fa-solid fa-shield-halved modal-icon"></i>
+          <div>
+            <h3>Secure Fast Checkout</h3>
+            <p class="modal-subtitle">Confirm delivery address and select payment</p>
+          </div>
+        </div>
+        <button class="close-btn" onclick="cartManager.closeCheckoutModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="modal-body">
+        <form id="checkoutForm" onsubmit="cartManager.handleOrderPlacement(event)">
+          <!-- Address section -->
+          <div class="checkout-block">
+            <h4><i class="fa-solid fa-location-dot"></i> Delivery Address</h4>
+            <div class="form-grid">
+              <input type="text" id="custName" placeholder="Full Name" required value="Ankit Sharma" class="input-ctrl">
+              <input type="tel" id="custPhone" placeholder="Mobile Number" required value="+91 98765 43210" class="input-ctrl">
+            </div>
+            <input type="text" id="custAddress" placeholder="Flat No, House No, Building Name" required value="Apartment 402, Green Glen View" class="input-ctrl mt-2">
+            <input type="text" id="custLandmark" placeholder="Street, Landmark, Area" required value="Near Eco World Outer Ring Road" class="input-ctrl mt-2">
+          </div>
+
+          <!-- Promo Code Selection -->
+          <div class="checkout-block">
+            <h4><i class="fa-solid fa-tags"></i> Apply Feast Coupons</h4>
+            <div class="promo-input-group">
+              <input type="text" id="promoCodeInput" placeholder="Enter coupon code (e.g. FEAST50)" class="input-ctrl uppercase">
+              <button type="button" class="promo-apply-btn" onclick="cartManager.applyCoupon()">Apply</button>
+            </div>
+            <div class="promo-pills-list">
+              <span class="coupon-tag" onclick="cartManager.quickCoupon('FEAST50')">FEAST50 (50% OFF)</span>
+              <span class="coupon-tag" onclick="cartManager.quickCoupon('WELCOME100')">WELCOME100 (₹100 OFF)</span>
+              <span class="coupon-tag" onclick="cartManager.quickCoupon('FREESHIP')">FREESHIP (Free Delivery)</span>
+            </div>
+            <div id="promoMessage" class="promo-feedback"></div>
+          </div>
+
+          <!-- Tip Delivery Partner -->
+          <div class="checkout-block">
+            <h4><i class="fa-solid fa-heart"></i> Tip your delivery superstar</h4>
+            <div class="tip-options">
+              <button type="button" class="tip-btn" onclick="cartManager.setTip(0, this)">None</button>
+              <button type="button" class="tip-btn active" onclick="cartManager.setTip(20, this)">₹20</button>
+              <button type="button" class="tip-btn" onclick="cartManager.setTip(30, this)">₹30</button>
+              <button type="button" class="tip-btn" onclick="cartManager.setTip(50, this)">₹50</button>
+            </div>
+          </div>
+
+          <!-- Payment Method -->
+          <div class="checkout-block">
+            <h4><i class="fa-solid fa-credit-card"></i> Payment Method</h4>
+            <div class="payment-options">
+              <label class="pay-option">
+                <input type="radio" name="paymentOption" value="UPI" checked>
+                <div class="pay-info">
+                  <div class="pay-title"><i class="fa-brands fa-google-pay"></i> UPI (Instant GPay / PhonePe / Paytm)</div>
+                  <div class="pay-desc">Pay directly via any UPI app</div>
+                </div>
+              </label>
+
+              <label class="pay-option">
+                <input type="radio" name="paymentOption" value="CARD">
+                <div class="pay-info">
+                  <div class="pay-title"><i class="fa-regular fa-credit-card"></i> Credit / Debit Card</div>
+                  <div class="pay-desc">Visa, MasterCard, RuPay, Amex</div>
+                </div>
+              </label>
+
+              <label class="pay-option">
+                <input type="radio" name="paymentOption" value="COD">
+                <div class="pay-info">
+                  <div class="pay-title"><i class="fa-solid fa-money-bill-1-wave"></i> Cash On Delivery</div>
+                  <div class="pay-desc">Pay cash or UPI upon delivery</div>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Checkout Order Summary -->
+          <div class="checkout-bill-summary" id="checkoutBillSummary">
+            <!-- Injected dynamically -->
+          </div>
+
+          <button type="submit" id="payAndPlaceOrderBtn" class="primary-btn full-btn pulse-glow">
+            <span>Place Order</span>
+            <span id="finalCheckoutAmount">₹0</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- AUTH MODAL (Login / Signup) -->
+  <div id="authModal" class="modal-overlay hidden">
+    <div class="modal-box auth-box">
+      <div class="modal-header">
+        <h3>Welcome to Feastify</h3>
+        <button class="close-btn" onclick="app.closeAuthModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <p class="auth-sub">Enter your details to track orders, save favorites & unlock exclusive dining discounts.</p>
+        <form onsubmit="app.handleAuthSubmit(event)">
+          <input type="text" id="authName" placeholder="Full Name" required class="input-ctrl mt-2" value="Demo Foodie">
+          <input type="email" id="authEmail" placeholder="Email Address" required class="input-ctrl mt-2" value="foodie@example.com">
+          <input type="tel" id="authPhone" placeholder="Phone Number" required class="input-ctrl mt-2" value="+91 9876543210">
+          <button type="submit" class="primary-btn full-btn mt-3">Continue</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- FOOTER -->
+  <footer class="app-footer">
+    <div class="container footer-content">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">Feastify<span>.</span></div>
+          <p>India's favorite food delivery & restaurant discovery platform.</p>
+        </div>
+        <div class="footer-countries">
+          <span class="country-pill"><i class="fa-solid fa-earth-americas"></i> India</span>
+          <span class="country-pill"><i class="fa-solid fa-globe"></i> English</span>
+        </div>
+      </div>
+
+      <div class="footer-links-grid">
+        <div class="footer-col">
+          <h5>ABOUT FEASTIFY</h5>
+          <a href="#">Who We Are</a>
+          <a href="#">Blog</a>
+          <a href="#">Work With Us</a>
+          <a href="#">Investor Relations</a>
+          <a href="#">Report Fraud</a>
+        </div>
+        <div class="footer-col">
+          <h5>FEASTVERSE</h5>
+          <a href="#">Feastify Pro</a>
+          <a href="#">Feeding India</a>
+          <a href="#">Hyperpure</a>
+          <a href="#">Feastland Festival</a>
+        </div>
+        <div class="footer-col">
+          <h5>FOR RESTAURANTS</h5>
+          <a href="#">Partner With Us</a>
+          <a href="#">Apps For You</a>
+          <a href="#">Restaurant Portal</a>
+        </div>
+        <div class="footer-col">
+          <h5>LEARN MORE</h5>
+          <a href="#">Privacy</a>
+          <a href="#">Security</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Live Map API Docs</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 Feastify Technologies Pvt. Ltd. All rights reserved. Crafted as a high-performance modern Zomato clone.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Leaflet Map JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  
+  <!-- Feastify Scripts -->
+  <script src="js/cart.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
